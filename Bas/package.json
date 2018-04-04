@@ -1,0 +1,140 @@
+{
+  "name": "AerobitHealth",
+  "version": "2.0.0",
+  "description": "API's build with Node.js for Aerobit Health",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/aerobit-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
+    "watch:test": "npm run test -- --watch",
+    "cover": "nyc npm run test",
+    "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
+    "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
+    "start:prod": "cross-env NODE_ENV=production node index.js",
+    "bs": "npm run clean && npm run build && npm run build:server && npm run start:prod",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "clean": "rimraf dist",
+    "slate": "rimraf node_modules && npm install",
+    "lint": "eslint client server"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/10decoders/Aerobit.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/10decoders/Aerobit/issues"
+  },
+  "homepage": "https://gitlab.com/10decoders/Aerobit.git",
+  "author": "<achu10@live.in>",
+  "license": "MIT",
+  "dependencies": {
+    "apn": "^2.2.0",
+    "apns": "^0.1.0",
+    "async": "^2.6.0",
+    "audit-log": "^0.9.1",
+    "aws-sdk": "^2.188.0",
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.15.1",
+    "compression": "^1.6.2",
+    "connect-mongo": "^2.0.1",
+    "connect-multiparty": "^2.1.0",
+    "cron": "^1.3.0",
+    "cron-job-manager": "^1.0.7",
+    "cross-env": "^1.0.8",
+    "crypto": "^1.0.1",
+    "cuid": "^1.3.8",
+    "express": "^4.13.4",
+    "express-jwt": "^5.3.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.0.0",
+    "fcm-node": "^1.2.1",
+    "fs": "0.0.1-security",
+    "i": "^0.3.6",
+    "intl": "^1.2.4",
+    "intl-locales-supported": "^1.0.0",
+    "jsonwebtoken": "^8.1.1",
+    "jwks-rsa": "^1.2.1",
+    "limax": "^1.3.0",
+    "mongoose": "^4.4.20",
+    "mongoose-unique-validator": "^1.0.6",
+    "mongoose-validator": "^1.3.2",
+    "mongoose-validators": "^0.1.0",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "node-cron": "^1.2.1",
+    "node-mongoose-validator": "^1.2.0",
+    "nodemailer": "^4.4.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "qs": "^6.5.1",
+    "randomatic": "^3.0.0",
+    "request": "^2.83.0",
+    "sanitize-html": "^1.11.4",
+    "sjcl": "^1.0.7",
+    "validator": "^9.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "coveralls": "^2.11.9",
+    "cssnano": "^3.7.0",
+    "enzyme": "^2.3.0",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-ava": "^2.4.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^1.3.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-standard": "^3.0.1",
+    "eventsource-polyfill": "^0.9.6",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "jsdom": "^9.2.1",
+    "json-loader": "^0.5.4",
+    "mockgoose": "^6.0.3",
+    "nock": "^8.0.0",
+    "nodemon": "^1.9.2",
+    "null-loader": "^0.1.1",
+    "nyc": "^6.4.4",
+    "pre-commit": "^1.1.3",
+    "rimraf": "^2.5.2",
+    "sinon": "^1.17.4",
+    "supertest": "^1.2.0",
+    "url-loader": "^0.5.7"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "ava": {
+    "files": [
+      "server/**/*.spec.js"
+    ],
+    "source": [
+      "server/**/*.js"
+    ],
+    "failFast": true,
+    "babel": "inherit",
+    "require": [
+      "./server/util/setup-test-env.js"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "server/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "html"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+version: '2'
+services:
+    myapp:
+        build: .
+        container_name: "nodemongoapp"
+        image: nodemongo
+        ports:
+            - 8001:8000
+        links:
+            - mongodb:myapp
+    mongodb:
+        image: mongo:latest
+        container_name: "mongodb"
+        ports:
+            - 27017:27017
+        
